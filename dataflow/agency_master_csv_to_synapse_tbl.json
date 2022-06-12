@@ -1,0 +1,52 @@
+{
+	"name": "agency_master_csv_to_synapse_tbl",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "datasetAgencyMaster",
+						"type": "DatasetReference"
+					},
+					"name": "agencymastercsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "datasetSynapseNYC_Payroll_AGENCY_MD",
+						"type": "DatasetReference"
+					},
+					"name": "agencymastersqltbl"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          AgencyID as string,",
+				"          AgencyName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> agencymastercsv",
+				"agencymastercsv sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          AgencyID as string,",
+				"          AgencyName as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> agencymastersqltbl"
+			]
+		}
+	}
+}

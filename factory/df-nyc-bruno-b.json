@@ -1,0 +1,17 @@
+{
+	"name": "df-nyc-bruno-b",
+	"properties": {
+		"globalParameters": {
+			"fiscalyear": {
+				"type": "int",
+				"value": 2021
+			}
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3eb8b7dd-00f0-4a70-af1e-6e6dd12afa8b",
+		"tenantId": "9b7cbd77-6d6b-4879-8aba-63d7dfb18472"
+	}
+}

@@ -1,0 +1,52 @@
+{
+	"name": "title_master_csv_to_synapse_tbl",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "datasetTitleMaster",
+						"type": "DatasetReference"
+					},
+					"name": "titlemastercsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "datasetSynapseNYC_Payroll_TITLE_MD",
+						"type": "DatasetReference"
+					},
+					"name": "titlemastersqltbl"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> titlemastercsv",
+				"titlemastercsv sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          TitleCode as string,",
+				"          TitleDescription as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> titlemastersqltbl"
+			]
+		}
+	}
+}
